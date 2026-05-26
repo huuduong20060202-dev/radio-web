@@ -1165,11 +1165,15 @@ if(logoutBtn){
 
     logoutBtn.onclick = async ()=>{
 
-        await auth.signOut();
+    await auth.signOut();
 
-        userInfo.innerHTML = '';
+    loginBtn.style.display = 'block';
 
-    };
+    logoutBtn.style.display = 'none';
+
+    userInfo.innerHTML = '';
+
+};
 
 }
 
@@ -1194,6 +1198,10 @@ auth.onAuthStateChanged((user)=>{
 
 function renderUser(user){
 
+    loginBtn.style.display = 'none';
+
+    logoutBtn.style.display = 'block';
+
     userInfo.innerHTML = `
 
         <img src="${user.photoURL}">
@@ -1205,3 +1213,4 @@ function renderUser(user){
     `;
 
 }
+
