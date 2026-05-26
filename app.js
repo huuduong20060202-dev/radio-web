@@ -1204,17 +1204,14 @@ function renderUser(user){
 
     userInfo.innerHTML = `
 
-        <img src="${user.photoURL}">
+    <img src="${user.photoURL}">
 
-        <div>
+    <div>
 
-            <h3>${user.displayName}</h3>
+        <h3>${user.displayName}</h3>
 
-            <p>${user.email}</p>
+        <p>${user.email}</p>
 
-        </div>
+    </div>
 
-    `;
-
-}
-
+`;
