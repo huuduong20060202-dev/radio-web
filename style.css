@@ -1060,76 +1060,113 @@ MOBILE
 
     position:absolute;
 
-    top:100px;
+    top:90px;
 
-    right:30px;
+    right:20px;
 
     z-index:99999;
 
-    width:190px;
+    width:220px;
 
-    padding:6px;
+    padding:10px;
 
-    border-radius:20px;
+    border-radius:18px;
 
-    background:rgba(0,0,0,0.45);
+    background:rgba(0,0,0,0.5);
 
-    border:1px solid rgba(100,255,218,0.25);
+    border:1px solid rgba(100,255,218,0.2);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(14px);
 
     box-shadow:
-    0 0 25px rgba(100,255,218,0.12);
+    0 0 18px rgba(100,255,218,0.12);
 
 }
+
+/* BUTTONS */
 
 #loginBtn,
 #logoutBtn{
 
     width:100%;
 
-    padding:10px;
+    padding:8px;
 
-    margin-bottom:10px;
+    margin-bottom:8px;
 
     border:none;
 
-    border-radius:14px;
+    border-radius:12px;
 
     background:#64ffda;
 
     color:#001219;
 
-    font-size:12px;
+    font-size:13px;
 
     font-weight:700;
 
     cursor:pointer;
 
-    transition:0.25s;
-
 }
+
+/* USER INFO */
+
 #userInfo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
 
     color:white;
 
-    margin-top:10px;
-
-    text-align:center;
+    overflow:hidden;
 
 }
 
+/* AVATAR */
+
 #userInfo img{
 
-    width:64px;
+    width:54px;
 
-    height:64px;
+    height:54px;
 
     border-radius:50%;
 
-    margin-bottom:10px;
-
     border:2px solid #64ffda;
+
+    flex-shrink:0;
+
+}
+
+/* TEXT */
+
+#userInfo h3{
+
+    margin:0;
+
+    font-size:18px;
+
+    line-height:1.1;
+
+}
+
+#userInfo p{
+
+    margin:2px 0 0;
+
+    font-size:11px;
+
+    opacity:0.75;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
 
 }
 #logoutBtn{
