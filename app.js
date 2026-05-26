@@ -1206,9 +1206,13 @@ function renderUser(user){
 
         <img src="${user.photoURL}">
 
-        <h3>${user.displayName}</h3>
+        <div>
 
-        <p>${user.email}</p>
+            <h3>${user.displayName}</h3>
+
+            <p>${user.email}</p>
+
+        </div>
 
     `;
 
