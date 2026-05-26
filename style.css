@@ -1126,3 +1126,6 @@ MOBILE
     border:2px solid #64ffda;
 
 }
+#logoutBtn{
+    display:none;
+}
