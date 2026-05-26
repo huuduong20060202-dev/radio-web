@@ -1114,5 +1114,98 @@ function renderStationList(){
         window.playStation = playStation;
         window.googleSearch = googleSearch;
     
-    
+}
+const loginBtn =
+document.getElementById('loginBtn');
+
+const logoutBtn =
+document.getElementById('logoutBtn');
+
+const userInfo =
+document.getElementById('userInfo');
+
+loginBtn.onclick = async ()=>{
+
+    const provider =
+    new GoogleAuthProvider();
+
+    try{
+
+        const result =
+        await signInWithPopup(
+            firebaseAuth,
+            provider
+        );
+
+        const user =
+        result.user;
+
+        renderUser(user);
+
+        await setDoc(
+
+            doc(
+                firebaseDB,
+                "users",
+                user.uid
+            ),
+
+            {
+                name:user.displayName,
+                email:user.email,
+                photo:user.photoURL,
+                lastLogin:Date.now()
+            }
+
+        );
+
+    }
+    catch(err){
+
+        console.error(err);
+
+    }
+
+};
+
+logoutBtn.onclick = async ()=>{
+
+    await signOut(firebaseAuth);
+
+};
+
+onAuthStateChanged(
+
+    firebaseAuth,
+
+    (user)=>{
+
+        if(user){
+
+            renderUser(user);
+
+        }
+        else{
+
+            userInfo.innerHTML = '';
+
+        }
+
+    }
+
+);
+
+function renderUser(user){
+
+    userInfo.innerHTML = `
+
+        <img src="${user.photoURL}">
+
+        <div>
+            <div>${user.displayName}</div>
+            <small>${user.email}</small>
+        </div>
+
+    `;
+
 }

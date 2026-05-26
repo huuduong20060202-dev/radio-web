@@ -21,6 +21,20 @@
 
 <body>
 
+    <div id="authPanel">
+
+        <button id="loginBtn">
+            Login Google
+        </button>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+
+        <div id="userInfo"></div>
+
+    </div>
+
     <!-- =========================================
          GLOBE
     ========================================== -->
@@ -452,6 +466,68 @@
     ========================================== -->
 
     <script src="app.js"></script>
+    <script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc
+}
+from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBKs6f_BGtHUsml7aq5DxXJhcY2r0pck08",
+
+  authDomain: "radio-web-2026.firebaseapp.com",
+
+  projectId: "radio-web-2026",
+
+  storageBucket: "radio-web-2026.firebasestorage.app",
+
+  messagingSenderId: "566400621190",
+
+  appId: "1:566400621190:web:7f3e5716239304b8820f07"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+window.firebaseAuth = auth;
+window.firebaseDB = db;
+
+window.GoogleAuthProvider =
+GoogleAuthProvider;
+
+window.signInWithPopup =
+signInWithPopup;
+
+window.signOut =
+signOut;
+
+window.onAuthStateChanged =
+onAuthStateChanged;
+
+window.doc = doc;
+window.setDoc = setDoc;
+
+</script>
 
 </body>
 </html>
