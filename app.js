@@ -1113,7 +1113,6 @@ function renderStationList(){
         `).join('');
         window.playStation = playStation;
         window.googleSearch = googleSearch;
-    
 }
 // ==========================================
 // FIREBASE AUTH
@@ -1130,41 +1129,49 @@ document.getElementById('userInfo');
 
 // LOGIN
 
-loginBtn.onclick = async ()=>{
+if(loginBtn){
 
-    try{
+    loginBtn.onclick = async ()=>{
 
-        const provider =
-        new firebase.auth.GoogleAuthProvider();
+        try{
 
-        const result =
-        await auth.signInWithPopup(provider);
+            const provider =
+            new firebase.auth.GoogleAuthProvider();
 
-        const user =
-        result.user;
+            const result =
+            await auth.signInWithPopup(provider);
 
-        renderUser(user);
+            const user =
+            result.user;
 
-    }
-    catch(err){
+            renderUser(user);
 
-        console.error(err);
+        }
+        catch(err){
 
-        alert("Login failed");
+            console.error(err);
 
-    }
+            alert("Login failed");
 
-};
+        }
+
+    };
+
+}
 
 // LOGOUT
 
-logoutBtn.onclick = async ()=>{
+if(logoutBtn){
 
-    await auth.signOut();
+    logoutBtn.onclick = async ()=>{
 
-    userInfo.innerHTML = '';
+        await auth.signOut();
 
-};
+        userInfo.innerHTML = '';
+
+    };
+
+}
 
 // AUTO LOGIN SESSION
 
