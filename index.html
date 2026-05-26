@@ -466,5 +466,27 @@
     ========================================== -->
 
     <script src="app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBKs6f_BGtHUsml7aq5DxXJhcY2r0pck08",
+  authDomain: "radio-web-2026.firebaseapp.com",
+  projectId: "radio-web-2026",
+  storageBucket: "radio-web-2026.firebasestorage.app",
+  messagingSenderId: "566400621190",
+  appId: "1:566400621190:web:7f3e5716239304b8820f07"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+</script>
 </body>
 </html>
