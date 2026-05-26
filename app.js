@@ -1116,44 +1116,85 @@ function renderStationList(){
     
 }
 // ==========================================
-// FIREBASE GOOGLE LOGIN
+// FIREBASE AUTH
 // ==========================================
 
 const loginBtn =
 document.getElementById('loginBtn');
 
-if(loginBtn){
+const logoutBtn =
+document.getElementById('logoutBtn');
 
-    loginBtn.onclick = async ()=>{
+const userInfo =
+document.getElementById('userInfo');
 
-        try{
+// LOGIN
 
-            const provider =
-            new firebase.auth.GoogleAuthProvider();
+loginBtn.onclick = async ()=>{
 
-            const result =
-            await auth.signInWithPopup(provider);
+    try{
 
-            const user =
-            result.user;
+        const provider =
+        new firebase.auth.GoogleAuthProvider();
 
-            console.log("LOGIN SUCCESS");
+        const result =
+        await auth.signInWithPopup(provider);
 
-            console.log(user);
+        const user =
+        result.user;
 
-            alert(
-                `Welcome ${user.displayName}`
-            );
+        renderUser(user);
 
-        }
-        catch(err){
+    }
+    catch(err){
 
-            console.error(err);
+        console.error(err);
 
-            alert("Login failed");
+        alert("Login failed");
 
-        }
+    }
 
-    };
+};
+
+// LOGOUT
+
+logoutBtn.onclick = async ()=>{
+
+    await auth.signOut();
+
+    userInfo.innerHTML = '';
+
+};
+
+// AUTO LOGIN SESSION
+
+auth.onAuthStateChanged((user)=>{
+
+    if(user){
+
+        renderUser(user);
+
+    }
+    else{
+
+        userInfo.innerHTML = '';
+
+    }
+
+});
+
+// RENDER USER
+
+function renderUser(user){
+
+    userInfo.innerHTML = `
+
+        <img src="${user.photoURL}">
+
+        <h3>${user.displayName}</h3>
+
+        <p>${user.email}</p>
+
+    `;
 
 }
