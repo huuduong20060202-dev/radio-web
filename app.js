@@ -1127,37 +1127,28 @@ document.getElementById('userInfo');
 loginBtn.onclick = async ()=>{
 
     const provider =
-    new GoogleAuthProvider();
+    new firebase.auth.GoogleAuthProvider();
 
     try{
 
         const result =
-        await signInWithPopup(
-            firebaseAuth,
-            provider
-        );
+        await auth.signInWithPopup(provider);
 
         const user =
         result.user;
 
         renderUser(user);
 
-        await setDoc(
+        await db.collection("users")
+        .doc(user.uid)
+        .set({
 
-            doc(
-                firebaseDB,
-                "users",
-                user.uid
-            ),
+            name:user.displayName,
+            email:user.email,
+            photo:user.photoURL,
+            lastLogin:Date.now()
 
-            {
-                name:user.displayName,
-                email:user.email,
-                photo:user.photoURL,
-                lastLogin:Date.now()
-            }
-
-        );
+        });
 
     }
     catch(err){
@@ -1170,30 +1161,24 @@ loginBtn.onclick = async ()=>{
 
 logoutBtn.onclick = async ()=>{
 
-    await signOut(firebaseAuth);
+    await auth.signOut();
 
 };
 
-onAuthStateChanged(
+auth.onAuthStateChanged((user)=>{
 
-    firebaseAuth,
+    if(user){
 
-    (user)=>{
+        renderUser(user);
 
-        if(user){
+    }
+    else{
 
-            renderUser(user);
-
-        }
-        else{
-
-            userInfo.innerHTML = '';
-
-        }
+        userInfo.innerHTML = '';
 
     }
 
-);
+});
 
 function renderUser(user){
 
