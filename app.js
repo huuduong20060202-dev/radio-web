@@ -1115,3 +1115,45 @@ function renderStationList(){
         window.googleSearch = googleSearch;
     
 }
+// ==========================================
+// FIREBASE GOOGLE LOGIN
+// ==========================================
+
+const loginBtn =
+document.getElementById('loginBtn');
+
+if(loginBtn){
+
+    loginBtn.onclick = async ()=>{
+
+        try{
+
+            const provider =
+            new firebase.auth.GoogleAuthProvider();
+
+            const result =
+            await auth.signInWithPopup(provider);
+
+            const user =
+            result.user;
+
+            console.log("LOGIN SUCCESS");
+
+            console.log(user);
+
+            alert(
+                `Welcome ${user.displayName}`
+            );
+
+        }
+        catch(err){
+
+            console.error(err);
+
+            alert("Login failed");
+
+        }
+
+    };
+
+}
