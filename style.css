@@ -1060,7 +1060,7 @@ MOBILE
 
     position:absolute;
 
-    bottom:140px;
+    top:100px;
 
     right:30px;
 
@@ -1090,7 +1090,7 @@ MOBILE
 
     padding:10px;
 
-    
+    margin-bottom:10px;
 
     border:none;
 
@@ -1109,17 +1109,6 @@ MOBILE
     transition:0.25s;
 
 }
-
-#loginBtn:hover,
-#logoutBtn:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-    0 0 18px rgba(100,255,218,0.5);
-
-}
-
 #userInfo{
 
     color:white;
