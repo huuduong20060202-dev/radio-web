@@ -1024,7 +1024,7 @@ SEARCH SCROLLBAR
 MOBILE
 ========================= */
 
-@media(max-width:700px){
+@media(max-width:400px){
 
     #leftPanel{
         top:15px;
@@ -1056,94 +1056,3 @@ MOBILE
         font-size:28px;
     }
 
-/* =========================
-SAFE RESPONSIVE FIX (ADD ONLY)
-KHÔNG XÓA CODE GỐC
-========================= */
-
-body {
-    overflow-x: hidden;
-}
-
-/* Fix layout cứng trên màn nhỏ */
-@media (max-width: 1200px){
-
-    #leftPanel,
-    #rightPanel{
-        width: 90vw !important;
-        max-width: 90vw;
-    }
-
-    #leftPanel{
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    #rightPanel{
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    #rightPanel.hidden{
-        transform: translateX(120%);
-    }
-
-    #audioVisualizer{
-        left: 20px !important;
-        bottom: 20px;
-    }
-
-    #telemetryPanel{
-        left: 20px !important;
-        bottom: 120px;
-    }
-}
-
-/* Tablet fix nhẹ */
-@media (max-width: 900px){
-
-    #audioVisualizer,
-    #telemetryPanel,
-    #localTimePanel{
-        display: none;
-    }
-
-    #leftPanel,
-    #rightPanel{
-        width: 92vw !important;
-    }
-}
-
-/* Mobile tối ưu thêm */
-@media (max-width: 700px){
-
-    #leftPanel,
-    #rightPanel{
-        width: 95vw !important;
-        padding: 15px;
-    }
-
-    #rightPanel{
-        max-height: 65vh;
-    }
-
-    .app-title{
-        font-size: 28px;
-    }
-
-    #stationList{
-        max-height: 180px;
-    }
-
-    .viewer-content{
-        width: 95%;
-        height: 92%;
-        padding: 25px;
-    }
-
-    #viewerTitle{
-        font-size: 28px;
-    }
-}
-}
