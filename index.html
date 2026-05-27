@@ -1,1 +1,476 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
 
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        RadioStream-Global
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/globe.gl"></script>
+
+</head>
+
+<body>
+
+    <div id="authPanel">
+
+        <button id="loginBtn">
+            Login Google
+        </button>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+
+        <div id="userInfo"></div>
+
+    </div>
+
+    <div id="globeViz"></div>
+
+    <div id="leftPanel">
+
+        <div class="panel-content">
+
+            <h1 class="app-title">
+                RadioStream
+            </h1>
+
+            <p class="instruction">
+                Hệ thống dò sóng và trích xuất dữ liệu toàn cầu.
+                Sử dụng chuột để điều hướng không gian và nhấp
+                vào một quốc gia để bắt đầu đồng bộ.
+            </p>
+
+            <!-- SEARCH -->
+
+            <div id="searchContainer">
+
+                <div class="search-box">
+
+                    <input
+                        id="countrySearchInput"
+                        type="text"
+                        placeholder="Tìm quốc gia..."
+                        autocomplete="off"
+                    >
+
+                    <button id="countrySearchBtn">
+                        🔍
+                    </button>
+
+                </div>
+
+                <div id="searchSuggestions"></div>
+
+            </div>
+
+            <!-- STATUS -->
+
+            <div class="broadcast-status">
+
+                <span class="status-icon">
+                    🟢
+                </span>
+
+                <span class="status-text">
+                    ĐANG PHÁT SÓNG
+                </span>
+
+            </div>
+
+            <!-- CURRENT RADIO -->
+
+            <div class="broadcast-details">
+
+                <p>
+                    <span class="icon">📍</span>
+
+                    Quốc gia:
+
+                    <span style="
+                        color:#8892b0;
+                        font-style:italic;
+                    ">
+                        Chưa chọn
+                    </span>
+                </p>
+
+                <p>
+                    <span class="icon">🎧</span>
+
+                    Trạm:
+
+                    <span style="
+                        color:#8892b0;
+                        font-style:italic;
+                    ">
+                        Chưa chọn
+                    </span>
+                </p>
+
+            </div>
+
+            <!-- STATION LIST -->
+
+            <div id="stationListContainer">
+
+                <div class="station-list-title">
+                    📻 DANH SÁCH ĐÀI
+                </div>
+
+                <div id="stationList">
+
+                    <div class="empty-station">
+                        Chọn quốc gia để tải radio...
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- AUDIO PLAYER -->
+
+            <div class="custom-audio-player">
+
+                <button
+                    id="playPauseBtn"
+                    class="control-btn"
+                >
+                    ▶️
+                </button>
+
+                <div class="timeline-container">
+
+                    <div
+                        id="timelineBar"
+                        class="timeline-bar"
+                    >
+
+                        <div
+                            id="timelineProgress"
+                            class="timeline-progress"
+                            style="width:0%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+                <span
+                    id="timeDisplay"
+                    class="time-display"
+                >
+                    LIVE
+                </span>
+
+                <!-- VOLUME -->
+
+                <div class="volume-wrapper">
+
+                    <button
+                        id="volumeBtn"
+                        class="control-btn"
+                    >
+                        🔊
+                    </button>
+
+                    <input
+                        type="range"
+                        id="volumeSlider"
+                        min="0"
+                        max="100"
+                        value="100"
+                        step="1"
+                    />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         RIGHT PANEL
+    ========================================== -->
+
+    <div id="rightPanel" class="hidden">
+
+        <button
+            id="closeRightBtn"
+            class="control-btn"
+            title="Đóng bảng thông tin"
+        >
+            &times;
+        </button>
+
+        <div class="panel-content">
+
+            <!-- HEADER -->
+
+            <div class="rp-header">
+
+                <img
+                    id="rpFlag"
+                    src=""
+                    alt="Quốc kỳ"
+                >
+
+                <h2 id="rpCountryName">
+                    Tên Quốc Gia
+                </h2>
+
+            </div>
+
+            <!-- INFO -->
+
+            <div class="rp-info-grid">
+
+                <p>
+                    <span class="icon">📍</span>
+
+                    Thủ đô:
+
+                    <strong id="rpCapital">
+                        ---
+                    </strong>
+                </p>
+
+                <p>
+                    <span class="icon">👥</span>
+
+                    Dân số:
+
+                    <strong id="rpPopulation">
+                        ---
+                    </strong>
+                </p>
+
+                <p>
+                    <span class="icon">📐</span>
+
+                    Diện tích:
+
+                    <strong id="rpArea">
+                        ---
+                    </strong>
+                </p>
+
+            </div>
+
+            <div class="rp-divider"></div>
+
+            <!-- COUNTRY ACTIONS -->
+
+            <div class="country-sections">
+
+                <!-- OVERVIEW -->
+
+                <button
+                    class="country-card"
+                    id="overviewBtn"
+                >
+
+                    <span class="country-icon">
+                        🌍
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Tổng quan
+                        </h3>
+
+                        <p>
+                            Xem thông tin bách khoa toàn thư
+                        </p>
+
+                    </div>
+
+                </button>
+
+                <!-- CUISINE -->
+
+                <button
+                    class="country-card"
+                    id="cuisineBtn"
+                >
+
+                    <span class="country-icon">
+                        🍜
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Ẩm thực
+                        </h3>
+
+                        <p>
+                            Khám phá món ăn nổi tiếng
+                        </p>
+
+                    </div>
+
+                </button>
+
+                <!-- TOURISM -->
+
+                <button
+                    class="country-card"
+                    id="tourismBtn"
+                >
+
+                    <span class="country-icon">
+                        ✈️
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Du lịch
+                        </h3>
+
+                        <p>
+                            Danh lam thắng cảnh nổi bật
+                        </p>
+
+                    </div>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         AUDIO VISUALIZER
+    ========================================== -->
+
+    <div id="audioVisualizer" class="hidden">
+
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+
+    </div>
+
+    <!-- =========================================
+         TELEMETRY
+    ========================================== -->
+
+    <div id="telemetryPanel" class="hidden">
+
+        <div class="telemetry-header">
+            📡 KẾT NỐI VỆ TINH
+        </div>
+
+        <div class="telemetry-data">
+
+            <p>
+                LAT:
+                <span id="telLat">--</span>
+
+                |
+
+                LNG:
+                <span id="telLng">--</span>
+            </p>
+
+            <p>
+                TRẠNG THÁI:
+                <span class="blink-text">
+                    LOADING DATA RADIO...
+                </span>
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         LOCAL TIME
+    ========================================== -->
+
+    <div id="localTimePanel" class="hidden">
+
+        <p class="time-label">
+            Giờ địa phương
+        </p>
+
+        <div id="liveClock">
+            --:--:--
+        </div>
+
+        <p id="timezoneText">
+            UTC +0
+        </p>
+
+    </div>
+
+    <!-- =========================================
+         FULLSCREEN VIEWER
+    ========================================== -->
+
+    <div id="countryViewer" class="viewer hidden">
+
+        <div class="viewer-overlay"></div>
+
+        <div class="viewer-content">
+
+            <button id="closeViewer" class="viewer-close">
+                ✕
+            </button>
+
+            <h1 id="viewerTitle"></h1>
+
+            <div id="viewerBody"></div>
+
+        </div>
+
+    </div>
+
+    <audio id="audioElement"></audio>
+
+    <script src="app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBKs6f_BGtHUsml7aq5DxXJhcY2r0pck08",
+  authDomain: "radio-web-2026.firebaseapp.com",
+  projectId: "radio-web-2026",
+  storageBucket: "radio-web-2026.firebasestorage.app",
+  messagingSenderId: "566400621190",
+  appId: "1:566400621190:web:7f3e5716239304b8820f07"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+</script>
+</body>
+</html>
